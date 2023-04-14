@@ -15,15 +15,22 @@ public class MeanMedianMode {
      }
 
     // Fills an array with numbers based on user input.
-     public static int[] fillArrayFromInput() {
+    public static int[] createArrayFromUserInput() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the number of elements: ");
-        int n = scanner.nextInt();
-        int[] arr = new int[n];
-        for (int i = 0; i < n; i++) {
-            arr[i] = i + 1;
+        
+        System.out.print("Enter the size of the array: ");
+        int size = scanner.nextInt();
+        
+        int[] arr = new int[size];
+        
+        for (int i = 0; i < size; i++) {
+            System.out.print("Enter element " + (i+1) + ": ");
+            arr[i] = scanner.nextInt();
         }
         scanner.close();
+        for (int i = 0; i<arr.length; i++) {
+            System.out.println(arr[i]);
+        }
         return arr;
     }
 
@@ -66,20 +73,34 @@ public class MeanMedianMode {
 
     // Finds the Mode of an Array of numbers
     public static int findMode(int[] arr){
-        int mode = 0;
-        for (int i = 0; i <= arr.length; i++){
-            mode = arr[i];
-            if (mode == arr[i+1]){
-                mode = arr[i];
-            }
-            else {
-                mode = arr[i+1];
+        // Step 1: Find the maximum value in the array
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > max) {
+            max = arr[i];
             }
         }
+
+        // Step 2: Create a frequency array of size max+1
+        int[] freq = new int[max + 1];
+        for (int i = 0; i < arr.length; i++) {
+            freq[arr[i]]++;
+        }
+
+        // Step 3: Find the mode (most frequently occurring element)
+        int mode = 0;
+        int maxFreq = 0;
+        for (int i = 0; i < freq.length; i++) {
+            if (freq[i] > maxFreq) {
+                maxFreq = freq[i];
+                mode = i;
+            }
+        }
+        System.out.println("Mode: " + mode);
         return mode;
     }
     public static void main(String[] args) {
-     int[] arr = fillArrayFromInput();
+     int[] arr = createArrayFromUserInput();
      findMedian(arr);
      findMean(arr);
      findMode(arr);
