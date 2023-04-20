@@ -3,7 +3,7 @@ package Playground;
 import java.util.Scanner;
 
 public class MeanMedianMode {
-        /*
+    /*
      * A class with methods to find the mean median and mode in a list of integers.
      */
 
